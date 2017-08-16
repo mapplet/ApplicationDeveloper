@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_26324_appdev.AppTool</api_name>
+        <client_callable>false</client_callable>
+        <description>Update... 1... 2...</description>
+        <name>AppTool</name>
+        <script><![CDATA[var AppTool = Class.create();
+AppTool.prototype = {
+    initialize: function() {
+    },
+	
+	setVersionTags: function(application) {
+		
+		var applicationId = application.getValue('sys_id');
+		var applicationVersion = application.getValue('version');
+		var excludedTypes = gs.getProperty('x_26324_appdev.excluded_types').split(',');
+		
+		var versionFile = new GlideRecord('sys_update_version');
+		versionFile.addQuery('application', applicationId);
+		versionFile.addQuery('state', 'current');
+		versionFile.addQuery('type', 'NOT IN', excludedTypes);
+		versionFile.query();
+		
+		while (versionFile.next()) {
+			
+			if (versionFile.x_26324_appdev_first_published_in.nil()) {
+				versionFile.x_26324_appdev_first_published_in = applicationVersion;
+			}
+			versionFile.x_26324_appdev_last_published_in = applicationVersion;
+			// versionFile.autoSysFields(false); Not allowed in scoped applications..
+			versionFile.update();
+		}
+	},
+
+    type: 'AppTool'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-08-15 13:34:38</sys_created_on>
+        <sys_id>6f49c312db2c03003c6bd730cf961904</sys_id>
+        <sys_mod_count>7</sys_mod_count>
+        <sys_name>AppTool</sys_name>
+        <sys_package display_value="Application Developer" source="x_26324_appdev">bfa83e1adbe803003c6bd730cf961987</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="Application Developer">bfa83e1adbe803003c6bd730cf961987</sys_scope>
+        <sys_update_name>sys_script_include_6f49c312db2c03003c6bd730cf961904</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-08-15 15:40:34</sys_updated_on>
+    </sys_script_include>
+</record_update>

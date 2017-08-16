@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element create_roles="admin" label="Update Versions" max_length="40" name="sys_update_version" read_roles="admin" type="collection">
+        <element label="Last published in" max_length="40" name="x_26324_appdev_last_published_in" read_only="true" type="string"/>
+        <element label="First published in" max_length="40" name="x_26324_appdev_first_published_in" read_only="true" type="string"/>
+    </element>
+</database>
